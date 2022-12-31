@@ -1,0 +1,55 @@
+import justpy as jp
+
+
+class Dictionary:
+    path = "/dictionary"
+
+    @classmethod
+    def serve(cls, req):  # cls === class, same as self, just a convention request parameter for justpy
+        wp = jp.QuasarPage(tailwind=True)
+        div = jp.Div(a=wp, classes="bg-gray-300 h-screen")
+        jp.Div(a=div, text="Instance English Dictionary", classes="text-4xl m-2")
+        jp.Div(a=div, text="Get the definition of any English word instantly as you write")
+
+        jp.Input(a=div, placeholder="Type in a word here ...",
+                 classes="m-2 bg-gray-100 border-2 border-gray-200 rounded w-64 "
+                         "focus:outline-none focus:border-purple-500 "
+                         "py-2 px-4")
+
+        jp.Div(a=div, classes="m-2 p-2 text-lg border-2 h-40")
+        print(cls, req)
+
+        return wp
+
+
+"""
+If you print(self) you will get the request from an instance object created by justpy. 
+If @classmethod than it prints the Dictionary class.
+If you use req then you get both the class and the request. With print(self, req)
+
+===> <class 'webapp.dictionary.Dictionary'> <starlette.requests.Request object at 0x00000139680E5C60>
+
+Just like About(). Dictionary is not an object instance so if you call the instance method it will 
+show an error. But if you make it a class method, with @classmethod, then it's ok.
+See @classmethod explication below.
+"""
+
+"""
+class D:
+    def serve(self):
+        print(self)
+D().serve()  === instance object
+<__main__.D object at 0x0000025DC9D2E0B0>
+D.serve()  === just the class
+Traceback (most recent call last):
+  File "C:/Users/40745/AppData/Local/Programs/Python/Python310/lib/code.py", line 90, in runcode
+    exec(code, self.locals)
+  File "<input>", line 1, in <module>
+TypeError: D.serve() missing 1 required positional argument: 'self'
+class D:
+    @classmethod
+    def serve(self):
+        print(self)
+D.serve()  === still no () on D, just the class, but works because it a class method and not an instance method
+<class '__main__.D'>
+"""
