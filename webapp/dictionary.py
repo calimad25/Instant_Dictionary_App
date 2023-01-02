@@ -1,9 +1,10 @@
 import justpy as jp
 import definition
 from webapp import default_layout
+from webapp import abstract
 
 
-class Dictionary:
+class Dictionary(abstract.AbstractPage):
     path = "/dictionary"
 
     @classmethod  # automatically Pycharm suggests cls instead of self
@@ -28,7 +29,7 @@ class Dictionary:
                                      "py-2 px-4")
         input_box.on('input', cls.get_definition)
 
-        print(cls, req)
+        # print(cls, req)
 
         return wp
 

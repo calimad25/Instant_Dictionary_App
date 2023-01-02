@@ -18,7 +18,7 @@ class DefaultLayout(jp.QLayout):
         a_classes = "p-2 m-2 test-lg text-blue-400 hover:text-blue-700"
         scroller = jp.QScrollArea(a=drawer, classes="fit")
         qlist = jp.QList(a=scroller)
-        jp.A(a=qlist, text="Home", href="/home", classes=a_classes)
+        jp.A(a=qlist, text="Home", href="/", classes=a_classes)
         jp.Br(a=qlist)
         jp.A(a=qlist, text="About", href="/about", classes=a_classes)
         jp.Br(a=qlist)

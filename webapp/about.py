@@ -5,9 +5,10 @@ About() === object instance. About is just the class
 
 import justpy as jp
 from webapp import default_layout
+from webapp import abstract
 
 
-class About:
+class About(abstract.AbstractPage):
     path = "/about"  # no need for __init__(self, path) cuz all users will have the same domain path
 
     def serve(self):

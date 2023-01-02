@@ -1,5 +1,6 @@
 import justpy as jp
 from webapp import default_layout
+from webapp import abstract
 
 """Visit https://quasar.dev and https://tailwindcss.com to see all the info about styling.
 a=div means thats the grid will be on top of div which has a=wp main gray background.
@@ -13,8 +14,8 @@ Quasar is more advanced but supports Tailwind. Just write tailwind=True
 """
 
 
-class Home:
-    path = "/home"
+class Home(abstract.AbstractPage):
+    path = "/"
 
     @classmethod
     def serve(cls, req):
