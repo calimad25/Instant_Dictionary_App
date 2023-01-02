@@ -1,4 +1,5 @@
 import justpy as jp
+from webapp import default_layout
 
 """Visit https://quasar.dev and https://tailwindcss.com to see all the info about styling.
 a=div means thats the grid will be on top of div which has a=wp main gray background.
@@ -11,6 +12,7 @@ Click and mouseenter are the same thing!
 Quasar is more advanced but supports Tailwind. Just write tailwind=True
 """
 
+
 class Home:
     path = "/home"
 
@@ -18,27 +20,9 @@ class Home:
     def serve(cls, req):
         wp = jp.QuasarPage(tailwind=True)
 
-        layout = jp.QLayout(a=wp, view="hHh lpR fFf")
-        header = jp.QHeader(a=layout)
-        toolbar = jp.QToolbar(a=header)
+        lay = default_layout.DefaultLayout(a=wp, view="hHh lpR fFf")
 
-        drawer = jp.QDrawer(a=layout, show_if_above=True, v_mode="left",
-                            bordered=True)
-        a_classes = "p-2 m-2 test-lg text-blue-400 hover:text-blue-700"
-        scroller = jp.QScrollArea(a=drawer, classes="fit")
-        qlist = jp.QList(a=scroller)
-        jp.A(a=qlist, text="Home", href="/home", classes=a_classes)
-        jp.Br(a=qlist)
-        jp.A(a=qlist, text="About", href="/about", classes=a_classes)
-        jp.Br(a=qlist)
-        jp.A(a=qlist, text="Dictionary", href="/dictionary", classes=a_classes)
-        jp.Br(a=qlist)
-
-        jp.QBtn(a=toolbar, dense=True, flat=True, round=True, icon="menu",
-                click=cls.move_drawer, drawer=drawer)
-        jp.QToolbarTitle(a=toolbar, text="Instant Dictionary")  # so that the button is in front of text
-
-        container = jp.QPageContainer(a=layout)
+        container = jp.QPageContainer(a=lay)
 
         div = jp.Div(a=container, classes="bg-gray-300 h-screen p-2")
         jp.Div(a=div, text="This is the Home page", classes="text-4xl m-2")
@@ -51,10 +35,3 @@ class Home:
                 sunt in culpa qui officia deserunt mollit 
                 anim id est laborum.""", classes="text-lg")
         return wp
-
-    @staticmethod
-    def move_drawer(widget, msg):
-        if widget.drawer.value is True:
-            widget.drawer.value = False
-        else:
-            widget.drawer.value = True
