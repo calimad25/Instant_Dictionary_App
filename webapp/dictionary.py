@@ -2,6 +2,7 @@ import justpy as jp
 import definition
 from webapp import default_layout
 from webapp import abstract
+import requests
 
 
 class Dictionary(abstract.AbstractPage):
@@ -33,11 +34,20 @@ class Dictionary(abstract.AbstractPage):
 
         return wp
 
-    @staticmethod  # method inside a class that behaves like a function
+    # @staticmethod  # method inside a class that behaves like a function
+    # def get_definition(widget, msg):
+    #     """@staticmethod does not expect as argument an instance of a class"""
+    #     defined = definition.Definition(widget.value).get()
+    #     widget.output.text = "".join(defined)  # so it shows as strings and not a tuple
+
+
+    @staticmethod
     def get_definition(widget, msg):
-        """@staticmethod does not expect as argument an instance of a class"""
-        defined = definition.Definition(widget.value).get()
-        widget.output.text = "".join(defined)  # so it shows as strings and not a tuple
+        """Using the API created in 08_Instant_Dictionary_API. Need to import requests for this"""
+        req = requests.get(f"http://127.0.0.1:8000/api?w={widget.value}")
+        data = req.json()
+
+        widget.output.text = "".join(data["definition"])
 
 
 """
